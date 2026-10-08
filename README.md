@@ -23,6 +23,19 @@ The archived request events and `artifact/regenerate.py` independently derive th
 
 **Interpretation.** A request count can exceed a per-window bound legitimately when an arm crosses a window boundary. The artifact evaluates the admission event in its recorded policy window rather than treating every total above the limit as a violation. These measurements describe the tested software and workload; they do not measure real customer bills or establish a general failure rate for deployed OTP services.
 
+## Artifact v4.7-r15 and reproduction notebooks
+
+The current artifact is [`otp_quota_artifact_v4.7-r15.zip`](otp_quota_artifact_v4.7-r15.zip) (SHA-256 `4dec194d6a8d78aad7bd26f6657185164a3ae0dd9852d38c889f993ef1ea28cb`). It adds formal models of the six designs (TLA+ and Tamarin under `formal/`), a round 6 arm running two off-the-shelf rate-limiting libraries, and its own `MANIFEST.sha256.json`; see `README.md` inside the archive.
+
+The reproduction notebook for that version is in [`notebooks/`](notebooks/):
+
+| File | Contents |
+| --- | --- |
+| `notebooks/otp_quota_reproduction.ipynb` | Clean notebook: in-process race demonstration, SQLite main sweep over HTTP, `regenerate.py` over the shipped records, and the per-overrun classification check |
+| `notebooks/otp_quota_reproduction_executed.ipynb` | The same notebook with its executed outputs against artifact v4.7-r15 |
+
+Run the notebook from inside an unpacked checkout of the artifact; its setup cell locates `svc/app.py` and pins the working directory to the artifact root.
+
 ## Artifact download and map
 
 Download [`otp-send-side-quota-artifact-ready.zip`](otp-send-side-quota-artifact-ready.zip) for the complete, versioned artifact. The paths below are inside the ZIP's top-level folder. The repository landing page highlights selected findings; the archive is the source of record for files and checksums.
