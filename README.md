@@ -1,78 +1,107 @@
-# Send-side OTP quota enforcement: research artifact
+# Send Side Quota Enforcement in One Time Password Software: research artifact
 
-Reproducibility materials for **Send-Side Quota Enforcement in One-Time-Password Software: A Package Survey and a Measurement Under Concurrency**, by Naveed Ahmad. This is a prepublication research artifact; the manuscript has not been represented here as an accepted or published IEEE Access article.
+Reproducibility artifact **v5.0-r17** for *Send Side Quota Enforcement in One Time Password
+Software: A Package Survey and a Measurement Under Concurrency* by Naveed Ahmad (Prince Sultan
+University). The manuscript (v5.0) is under review at Computers & Security; it is not an accepted
+or published article.
 
-The study surveys OTP delivery packages and measures six quota-enforcement patterns under concurrent requests. It reports admissions against declared limits, not real SMS charges. Experiments use a local provider stub and do not contact a production OTP provider or send messages to recipients.
+Services that send one time passwords by SMS pay for every message. This artifact holds one
+operational contract for the bound on sending (C1 send bound, C2 billing bound under faults, C3 no
+duplicate call, C4 availability), a survey of 42 Python code delivery packages with a validation
+of every filter stage, a measurement of eight admission designs under simultaneous requests, six
+surveyed packages executed on their own delivery paths, timed and untimed formal models, and a
+benchmark of two rate limiting libraries in 13 configurations, together with every raw record and
+the script that regenerates every reported number from those records.
 
-## Results at a glance
+## Files in this repository
 
-**Package survey.** The artifact contains a manually reviewed sample of 42 Python packages and records whether sending controls were enforced, delegated, or absent. This is a sample, not an ecosystem prevalence estimate. Its classification audit is retained in the complete archive.
+| File | What it is |
+|---|---|
+| `otp_quota_artifact_v5.0-r17.zip` | The complete artifact (code, records, models, paper source, review logs). SHA-256 `ab326a5c6e72152094de7729b98f6db6e0d8a2ab65fe0ff063cc1b57891f447f` |
+| `notebooks/otp_quota_reproduction.ipynb` | The reproduction notebook, without outputs |
+| `notebooks/otp_quota_reproduction_executed.ipynb` | The same notebook, executed against v5.0-r17 |
+| `CITATION.cff` | Citation record (GitHub shows it as "Cite this repository") |
 
-**Concurrency measurement.** The declared limit was three admissions per number per window. The table shows *median / maximum admissions* across 30 trials per cell in the round-4 SQLite main sweep. `k` is the number of simultaneous requests; values above three in one policy window violate the declared bound.
-
-| Quota implementation | k = 8 | k = 32 | Policy-violating trials across all k (of 180) |
-| --- | ---: | ---: | ---: |
-| Count then insert | 8 / 8 | 6.5 / 27 | 113 |
-| Read, modify, write counter | 8 / 8 | 18.5 / 32 | 118 |
-| Increment after send | 8 / 8 | 32 / 32 | 120 |
-| Conditional atomic update | 3 / 3 | 3 / 3 | 0 |
-| Guarded write transaction | 3 / 3 | 3 / 3 | 0 |
-| Reserve before send | 3 / 3 | 3 / 3 | 0 |
-
-The archived request events and `artifact/regenerate.py` independently derive the policy classifications; `artifact/results/paper_numbers.md` includes PostgreSQL, boundary, worker, and latency arms. Across all round-4 arms, the three one-step patterns had 0 policy violations in 2,430 trials. These are local measurements of the experimental implementations under the stated workload.
-
-**Interpretation.** A request count can exceed a per-window bound legitimately when an arm crosses a window boundary. The artifact evaluates the admission event in its recorded policy window rather than treating every total above the limit as a violation. These measurements describe the tested software and workload; they do not measure real customer bills or establish a general failure rate for deployed OTP services.
-
-## Artifact v4.7-r15 and reproduction notebooks
-
-The current artifact is [`otp_quota_artifact_v4.7-r15.zip`](otp_quota_artifact_v4.7-r15.zip) (SHA-256 `4dec194d6a8d78aad7bd26f6657185164a3ae0dd9852d38c889f993ef1ea28cb`). It adds formal models of the six designs (TLA+ and Tamarin under `formal/`), a round 6 arm running two off-the-shelf rate-limiting libraries, and its own `MANIFEST.sha256.json`; see `README.md` inside the archive.
-
-The reproduction notebook for that version is in [`notebooks/`](notebooks/):
-
-| File | Contents |
-| --- | --- |
-| `notebooks/otp_quota_reproduction.ipynb` | Clean notebook: in-process race demonstration, SQLite main sweep over HTTP, `regenerate.py` over the shipped records, and the per-overrun classification check |
-| `notebooks/otp_quota_reproduction_executed.ipynb` | The same notebook with its executed outputs against artifact v4.7-r15 |
-
-Run the notebook from inside an unpacked checkout of the artifact; its setup cell locates `svc/app.py` and pins the working directory to the artifact root.
-
-## Artifact download and map
-
-Download [`otp-send-side-quota-artifact-ready.zip`](otp-send-side-quota-artifact-ready.zip) for the complete, versioned artifact. The paths below are inside the ZIP's top-level folder. The repository landing page highlights selected findings; the archive is the source of record for files and checksums.
-
-| Path | Contents |
-| --- | --- |
-| `artifact/README.md` | Full methodology, results, limitations, and reproduction instructions |
-| `artifact/notebooks/otp_quota_reproduction_executed.ipynb` | Executed notebook and playbook |
-| `artifact/svc/` | Versioned OTP service and archived source used for the reported runs |
-| `artifact/study/` | Experiment drivers, survey scripts, policy oracle, event analysis, and tests |
-| `artifact/results/` | Raw trial and request records, survey audit, and derived outputs |
-| `artifact/paper/` | Manuscript source and preview PDF |
-| `artifact/review/` | Review trackers, rebuttals, and verification logs |
-
-The archive preserves the supplied **v3.4-r6 snapshot** with its own `MANIFEST.sha256.json`. Run artifact commands from its `artifact/` directory so repository metadata above it does not affect verification.
-
-## Quick verification
+Earlier versions (v4.7-r15, v4.8-r16) remain available from the repository history.
 
 ```bash
-unzip otp-send-side-quota-artifact-ready.zip
-cd otp-send-side-quota-artifact/artifact
-python3 study/manifest.py verify
-python3 study/test_manifest.py
-python3 regenerate.py
-python3 study/manifest.py verify
+sha256sum otp_quota_artifact_v5.0-r17.zip
+unzip otp_quota_artifact_v5.0-r17.zip && cd otp_quota_artifact_v5.0-r17
+python3 study/manifest.py verify      # every file against MANIFEST.sha256.json
+python3 regenerate.py                 # recompute results/paper_numbers.json from the records
+python3 study/manifest.py verify      # the regenerated files must match byte for byte
 ```
 
-The first check validates the supplied files. The second runs nine verifier tests. Regeneration recomputes the derived numbers from archived event records and the frozen package audit; the final check requires byte-identical derived outputs. Install the environment and run the complete suite using `artifact/README.md` inside the archive. A full rerun writes to `artifact/results/repro/` without overwriting the shipped trials.
+## What is inside the archive
 
-The notebook reruns the SQLite main sweep and examines archived analyses. It does **not** independently rerun every arm or recollect the package survey. For the complete protocol, use `artifact/reproduce.sh` and the survey commands in the artifact README.
+| Path | Contents |
+|---|---|
+| `svc/` | The service 2.2.0 with eight admission designs (`app.py` SQLite, `app_pg.py` PostgreSQL), opt in switches (`opt.py`), an independent provider process (`provider.py`), the library apps (`libs/`), and the sites of the executed packages (`pkgs/`); 2.0.0 and 2.1.0 in `archive/` |
+| `study/` | Survey pipeline, experiment drivers (`run_round7.py`, `run_packages7.py`, `run_libraries.py`), the policy oracle, and the generators of every table, figure, and number macro of the paper |
+| `results/` | Every record: `r4/` main study, `r5/` checks, `r6/` libraries, `r7/` round 7 arms and survey validation; `paper_numbers.json` |
+| `formal/` | TLA+ models (untimed and timed) checked with TLC, Tamarin models (fixed and parameterized limit), runners, verdicts, traces (`formal/README.md`) |
+| `paper/` | LaTeX source of manuscript v5.0 (`otp_cose.tex`, `cose/`), the compiled PDF, and the Word converter |
+| `review/` | Reviewer reports, the response letter, the literature search record, and the second coder kit (`coding_kit/`) |
 
-## Scope
+## Main results (manuscript v5.0)
 
-The package survey is a sample of one language ecosystem; its end-to-end recall is unknown. The concurrency study uses one host, two datastores, local traffic, and a provider stub. It does not establish the exposure or bill of any deployed application. The review history and prepublication manuscript are included for auditability, not as evidence of journal acceptance.
+**Survey.** Of the 42 packages that the search discovers and that were read by hand, 10 carry a
+send side check in their own code; 4 of those constrain, per recipient, an attacker who only
+requests codes, and 1 more does so only within one worker process. Every filter stage misses
+relevant packages (detector recall within the candidates about 55%), so these are counts of a
+cohort, not prevalence estimates.
 
-The artifact also includes a package-execution experiment. Coordinate disclosure of any version-specific third-party finding with the maintainers. Do not direct tests at third-party systems without authorization.
+**Concurrency.** Declared limit 3 per number per window. The three designs that check and then
+write exceeded it in 113 to 120 of 120 simultaneous trials with k > 3 on SQLite (up to 10.7 times);
+no design whose grant is one atomic operation violated it in a burst, in 1,620 more trials over
+three independent runs per datastore either. An independent provider process agreed with the grant
+records in every trial. A sequential test passed every design.
 
-## Citation and license
+**Executed packages.** django-mfa 4.6.0 delivered up to 29 codes against its limit of 3;
+django-otp 1.7.3 up to 19 against its cooldown of 1; django-otp-auth 2.3.0 delivered every
+simultaneous request (per process state); fastapi-otp-auth 0.1.4, whose decision is one atomic
+Redis increment, never exceeded its limit; django-two-factor-auth and django-otp-twilio delivered
+every request.
 
-Cite this as a **research artifact, version v3.4-r6** until a final publication record exists; see `CITATION.cff` inside the archive. Code is MIT licensed under its `LICENSE`. Package metadata and third-party dependencies retain their respective licenses.
+**Time and faults.** With requests delayed across a window boundary, the conditional update on the
+request's clock exceeded the limit by authorization instant in 16 of 30 trials; its variant on the
+datastore's clock in none. The reservation release rule of service 2.1.0 overspent (up to 7 billed
+in one window against 3); releasing only certain failures, only on the reserved row, on the
+datastore's clock, did not.
+
+**Formal.** 320 timed TLC runs and Tamarin proofs (any number of requests; limits 1 to 5, and any
+limit in the parameterized model) agree with the measurements and identify the release rules that
+violate the billing bound.
+
+**Libraries.** Every configuration whose counter is shared by all workers and increments
+atomically held the limit (Redis fixed, moving, sliding; Memcached); per process stores failed with
+four workers and held with one; django-ratelimit's database cache, which its own check rejects,
+failed.
+
+These are local measurements against a provider stub, not real bills or a general failure rate.
+
+## Scope and responsible use
+
+No real SMS is sent and no external service, maintainer, or recipient is contacted. The package
+behaviors recorded here are send side races or per process state, not verification bypasses; as
+of October 9, 2026 the maintainers had not been notified, and the author will report them through
+each project's security contact. Do not run these tests against systems you are not authorized to
+test.
+
+## Citation
+
+```bibtex
+@misc{ahmad2026otpartifact,
+  author       = {Ahmad, Naveed},
+  title        = {Send Side Quota Enforcement in One Time Password Software:
+                  A Package Survey and a Measurement Under Concurrency (research artifact)},
+  year         = {2026},
+  version      = {v5.0-r17},
+  howpublished = {\url{https://github.com/nahmedpsu/otp-send-side-quota-artifact}}
+}
+```
+
+## License
+
+MIT for the code. The package metadata in `results/` was collected from the public package index
+and remains subject to the licenses of the projects it describes.

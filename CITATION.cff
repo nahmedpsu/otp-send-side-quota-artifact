@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this artifact, please cite it as below. The manuscript is under review and has no publication record yet."
+type: software
+title: "Send Side Quota Enforcement in One Time Password Software: A Package Survey and a Measurement Under Concurrency (research artifact)"
+version: "v5.0-r17"
+date-released: "2026-10-09"
+authors:
+  - family-names: Ahmad
+    given-names: Naveed
+    affiliation: "Prince Sultan University"
+repository-code: "https://github.com/nahmedpsu/otp-send-side-quota-artifact"
+license: MIT
+keywords:
+  - one time password
+  - SMS pumping
+  - rate limiting
+  - race condition
+  - TLA+
+  - Tamarin
