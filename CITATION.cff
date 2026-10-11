@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use this artifact, please cite it as below. The manuscript is under review and has no publication record yet."
 type: software
 title: "Send Side Quota Enforcement in One Time Password Software: A Package Survey and a Measurement Under Concurrency (research artifact)"
-version: "v5.1-r18"
-date-released: "2026-10-09"
+version: "v5.2-r19"
+date-released: "2026-10-11"
 authors:
   - family-names: Ahmad
     given-names: Naveed
