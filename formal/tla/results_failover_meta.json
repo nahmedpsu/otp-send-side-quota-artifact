@@ -1,0 +1,10 @@
+{
+ "date": "2026-10-24T04:24:52+00:00",
+ "tlc_version": "TLC2 Version 2026.10.24.013619 (rev: 2ef2af8)",
+ "tla2tools_sha256": "d15655eeaff4b3f7b3d65c46b838bc0f35d131b2ef4b1e473689b62c98d4726f",
+ "workers": 4,
+ "heap": "8g",
+ "cores": 4,
+ "runs": 79,
+ "largest_distinct": 92341641
+}

@@ -1,0 +1,162 @@
+TLC2 Version 2026.10.24.013619 (rev: 2ef2af8)
+Running breadth-first search Model-Checking with fp 115 and seed 1963658101736985467 with 1 worker on 4 cores with 7282MB heap and 64MB offheap memory [pid: 5173] (Linux 6.18.44-fc-v153 amd64, Ubuntu 21.0.12.1 64bit, MSBDiskFPSet, DiskStateQueue).
+Parsing file /tmp/claude-0/-home-user-otp-send-side-quota-artifact/16447a5e-c093-5819-9f13-9c924bc7f73e/scratchpad/round10/formal/tla/AdmissionTimedFailover.tla
+Parsing file /tmp/tlc-7203461228946548815/Naturals.tla (jar:file:/tmp/claude-0/-home-user-otp-send-side-quota-artifact/16447a5e-c093-5819-9f13-9c924bc7f73e/scratchpad/tools/tla2tools.jar!/tla2sany/StandardModules/Naturals.tla)
+Parsing file /tmp/tlc-7203461228946548815/FiniteSets.tla (jar:file:/tmp/claude-0/-home-user-otp-send-side-quota-artifact/16447a5e-c093-5819-9f13-9c924bc7f73e/scratchpad/tools/tla2tools.jar!/tla2sany/StandardModules/FiniteSets.tla)
+Parsing file /tmp/tlc-7203461228946548815/Sequences.tla (jar:file:/tmp/claude-0/-home-user-otp-send-side-quota-artifact/16447a5e-c093-5819-9f13-9c924bc7f73e/scratchpad/tools/tla2tools.jar!/tla2sany/StandardModules/Sequences.tla)
+Semantic processing of module Naturals
+Semantic processing of module Sequences
+Semantic processing of module FiniteSets
+Semantic processing of module AdmissionTimedFailover
+Linting of module AdmissionTimedFailover
+Starting... (2026-10-24 04:19:27)
+Computing initial states...
+Finished computing initial states: 1 distinct state generated at 2026-10-24 04:19:27.
+Error: Invariant C1tau is violated.
+Error: The behavior up to this point is:
+State 1: <Initial predicate>
+/\ outc = <<"none", "none">>
+/\ now = <<0, 0>>
+/\ clock = 0
+/\ pc = <<"start", "start">>
+/\ resw = <<0, 0>>
+/\ row = <<[used |-> 0, ws |-> 0, present |-> FALSE]>>
+/\ rep = <<[used |-> 0, ws |-> 0, present |-> FALSE]>>
+/\ fo = 0
+/\ st = <<1, 1>>
+/\ adm = {}
+/\ calls = {}
+
+State 2: <Tick line 83, col 5 to line 86, col 70 of module AdmissionTimedFailover>
+/\ outc = <<"none", "none">>
+/\ now = <<0, 0>>
+/\ clock = 1
+/\ pc = <<"start", "start">>
+/\ resw = <<0, 0>>
+/\ row = <<[used |-> 0, ws |-> 0, present |-> FALSE]>>
+/\ rep = <<[used |-> 0, ws |-> 0, present |-> FALSE]>>
+/\ fo = 0
+/\ st = <<1, 1>>
+/\ adm = {}
+/\ calls = {}
+
+State 3: <Start(1) line 114, col 5 to line 119, col 64 of module AdmissionTimedFailover>
+/\ outc = <<"none", "none">>
+/\ now = <<1, 0>>
+/\ clock = 1
+/\ pc = <<"roll1", "start">>
+/\ resw = <<0, 0>>
+/\ row = <<[used |-> 0, ws |-> 0, present |-> FALSE]>>
+/\ rep = <<[used |-> 0, ws |-> 0, present |-> FALSE]>>
+/\ fo = 0
+/\ st = <<1, 1>>
+/\ adm = {}
+/\ calls = {}
+
+State 4: <Tick line 83, col 5 to line 86, col 70 of module AdmissionTimedFailover>
+/\ outc = <<"none", "none">>
+/\ now = <<1, 0>>
+/\ clock = 2
+/\ pc = <<"roll1", "start">>
+/\ resw = <<0, 0>>
+/\ row = <<[used |-> 0, ws |-> 0, present |-> FALSE]>>
+/\ rep = <<[used |-> 0, ws |-> 0, present |-> FALSE]>>
+/\ fo = 0
+/\ st = <<1, 1>>
+/\ adm = {}
+/\ calls = {}
+
+State 5: <Roll1(1) line 123, col 5 to line 127, col 68 of module AdmissionTimedFailover>
+/\ outc = <<"none", "none">>
+/\ now = <<1, 0>>
+/\ clock = 2
+/\ pc = <<"roll2", "start">>
+/\ resw = <<0, 0>>
+/\ row = <<[used |-> 0, ws |-> 0, present |-> TRUE]>>
+/\ rep = <<[used |-> 0, ws |-> 0, present |-> FALSE]>>
+/\ fo = 0
+/\ st = <<1, 1>>
+/\ adm = {}
+/\ calls = {}
+
+State 6: <Roll2(1) line 130, col 5 to line 135, col 68 of module AdmissionTimedFailover>
+/\ outc = <<"none", "none">>
+/\ now = <<1, 0>>
+/\ clock = 2
+/\ pc = <<"inc", "start">>
+/\ resw = <<0, 0>>
+/\ row = <<[used |-> 0, ws |-> 0, present |-> TRUE]>>
+/\ rep = <<[used |-> 0, ws |-> 0, present |-> FALSE]>>
+/\ fo = 0
+/\ st = <<1, 1>>
+/\ adm = {}
+/\ calls = {}
+
+State 7: <Inc(1) line 138, col 5 to line 145, col 57 of module AdmissionTimedFailover>
+/\ outc = <<"none", "none">>
+/\ now = <<1, 0>>
+/\ clock = 2
+/\ pc = <<"send", "start">>
+/\ resw = <<0, 0>>
+/\ row = <<[used |-> 1, ws |-> 0, present |-> TRUE]>>
+/\ rep = <<[used |-> 0, ws |-> 0, present |-> FALSE]>>
+/\ fo = 0
+/\ st = <<1, 1>>
+/\ adm = {[r |-> 1, tau |-> 2, w |-> 0]}
+/\ calls = {}
+
+State 8: <Start(2) line 114, col 5 to line 119, col 64 of module AdmissionTimedFailover>
+/\ outc = <<"none", "none">>
+/\ now = <<1, 2>>
+/\ clock = 2
+/\ pc = <<"send", "roll1">>
+/\ resw = <<0, 0>>
+/\ row = <<[used |-> 1, ws |-> 0, present |-> TRUE]>>
+/\ rep = <<[used |-> 0, ws |-> 0, present |-> FALSE]>>
+/\ fo = 0
+/\ st = <<1, 1>>
+/\ adm = {[r |-> 1, tau |-> 2, w |-> 0]}
+/\ calls = {}
+
+State 9: <Roll1(2) line 123, col 5 to line 127, col 68 of module AdmissionTimedFailover>
+/\ outc = <<"none", "none">>
+/\ now = <<1, 2>>
+/\ clock = 2
+/\ pc = <<"send", "roll2">>
+/\ resw = <<0, 0>>
+/\ row = <<[used |-> 1, ws |-> 0, present |-> TRUE]>>
+/\ rep = <<[used |-> 0, ws |-> 0, present |-> FALSE]>>
+/\ fo = 0
+/\ st = <<1, 1>>
+/\ adm = {[r |-> 1, tau |-> 2, w |-> 0]}
+/\ calls = {}
+
+State 10: <Roll2(2) line 130, col 5 to line 135, col 68 of module AdmissionTimedFailover>
+/\ outc = <<"none", "none">>
+/\ now = <<1, 2>>
+/\ clock = 2
+/\ pc = <<"send", "inc">>
+/\ resw = <<0, 0>>
+/\ row = <<[used |-> 0, ws |-> 2, present |-> TRUE]>>
+/\ rep = <<[used |-> 0, ws |-> 0, present |-> FALSE]>>
+/\ fo = 0
+/\ st = <<1, 1>>
+/\ adm = {[r |-> 1, tau |-> 2, w |-> 0]}
+/\ calls = {}
+
+State 11: <Inc(2) line 138, col 5 to line 145, col 57 of module AdmissionTimedFailover>
+/\ outc = <<"none", "none">>
+/\ now = <<1, 2>>
+/\ clock = 2
+/\ pc = <<"send", "send">>
+/\ resw = <<0, 2>>
+/\ row = <<[used |-> 1, ws |-> 2, present |-> TRUE]>>
+/\ rep = <<[used |-> 0, ws |-> 0, present |-> FALSE]>>
+/\ fo = 0
+/\ st = <<1, 1>>
+/\ adm = {[r |-> 1, tau |-> 2, w |-> 0], [r |-> 2, tau |-> 2, w |-> 2]}
+/\ calls = {}
+
+5936 states generated, 3140 distinct states found, 1263 states left on queue.
+The depth of the complete state graph search is 11.
+Finished in 00s at (2026-10-24 04:19:27)
