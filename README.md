@@ -22,7 +22,11 @@ the script that regenerates every reported number from those records.
 | `notebooks/otp_quota_reproduction_executed.ipynb` | The same notebook, executed against v5.2-r19 |
 | `CITATION.cff` | Citation record (GitHub shows it as "Cite this repository") |
 
-Earlier versions (v4.7-r15, v4.8-r16, v5.0-r17, v5.1-r18) remain available from the repository history.
+Earlier versions (v4.7-r15, v5.0-r17, v5.1-r18) remain available from the repository history, each at a tag of the same name.
+
+## Round 10: replication and failover (`formal/`)
+
+The manuscript *An Atomic Grant Is Not Enough* (v5.2 of the study, under review at Computers & Security) cites `formal/tla/AdmissionTimedFailover.tla` and its TLC checker outputs in this repository. They are in [`formal/`](formal/), ahead of the next archive, and `formal/README.md` describes them: the timed model with a primary, one replica, and at most one failover, 79 TLC runs under asynchronous and synchronous replication, the result tables, every counterexample trace, and the log of the invocation that produced them (October 24, 2026).
 
 ```bash
 sha256sum otp_quota_artifact_v5.2-r19.zip
